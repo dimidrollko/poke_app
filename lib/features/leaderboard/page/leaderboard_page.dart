@@ -23,7 +23,7 @@ class LeaderboardPage extends ConsumerWidget {
                   horizontal: 16,
                   vertical: 12,
                 ),
-                color: Theme.of(context).colorScheme.surfaceVariant,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 child: Row(
                   children: const [
                     SizedBox(

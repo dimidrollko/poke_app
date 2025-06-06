@@ -8,13 +8,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:poke_app/components/common/constants.dart';
 import 'package:poke_app/features/auth/provider/auth_provider.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image/image.dart' as img;
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:poke_app/services/router/router_provider.dart';
-import 'package:poke_app/user/provider/provider.dart';
 
 class CompleteProfilePage extends ConsumerStatefulWidget {
   const CompleteProfilePage({super.key, this.tutorialData});
@@ -116,7 +116,7 @@ class _CompleteProfilePageState extends ConsumerState<CompleteProfilePage> {
                           : null,
                 ),
               ),
-              const SizedBox(height: 16),
+              Gaps.h16,
               TextFormField(
                 controller: _usernameController,
                 decoration: const InputDecoration(labelText: 'Username'),
@@ -133,10 +133,10 @@ class _CompleteProfilePageState extends ConsumerState<CompleteProfilePage> {
                 enabled: false,
               ),
               if (_error != null) ...[
-                const SizedBox(height: 8),
+                Gaps.h8,
                 Text(_error!, style: const TextStyle(color: Colors.red)),
               ],
-              const SizedBox(height: 16),
+              Gaps.h16,
               ElevatedButton(
                 onPressed:
                     _isUploading
@@ -152,7 +152,7 @@ class _CompleteProfilePageState extends ConsumerState<CompleteProfilePage> {
                                   username: _usernameController.text.trim(),
                                   email: user.email!,
                                   avatar: avatarUrl,
-                                  discovered: widget.tutorialData
+                                  discovered: widget.tutorialData,
                                 );
                             if (!context.mounted) return;
                             ref.context.goNamed(rPokedex);

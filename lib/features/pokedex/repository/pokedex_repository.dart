@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:poke_app/features/pokedex/data/pokemon_details.dart';
 import 'package:poke_app/features/pokedex/data/pokemon_model.dart';

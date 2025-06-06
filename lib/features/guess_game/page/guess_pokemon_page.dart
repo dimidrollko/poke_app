@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poke_app/components/common/constants.dart';
 import 'package:poke_app/features/guess_game/data/starter_pack.dart';
 import 'package:poke_app/features/pokedex/data/pokemon_model.dart';
 import 'package:poke_app/features/pokedex/provider/pokemons_provider.dart';
@@ -258,7 +259,7 @@ class _GuessPokemonPageState extends ConsumerState<GuessPokemonPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  Gaps.h16,
                   if (widget.isTutorial)
                     Text(
                       "Welcome in PokeQuiz\nIt's your first Catch\n Choose ${correctOption?.name} to go next",
