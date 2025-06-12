@@ -27,7 +27,7 @@ class PokemonListPage extends ConsumerWidget {
             icon: Icon(
               showDiscoveredOnly ? Icons.filter_list : Icons.filter_list_off,
             ),
-            tooltip: showDiscoveredOnly ? 'Show All' : 'Show Discovered Only',
+            tooltip: showDiscoveredOnly ? 'Show Discovered Only': 'Show All',
             onPressed: () {
               ref.read(showDiscoveredOnlyProvider.notifier).state =
                   !showDiscoveredOnly;

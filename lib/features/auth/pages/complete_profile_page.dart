@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:nes_ui/nes_ui.dart';
 import 'package:poke_app/components/common/constants.dart';
 import 'package:poke_app/features/auth/provider/auth_provider.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -137,7 +138,8 @@ class _CompleteProfilePageState extends ConsumerState<CompleteProfilePage> {
                 Text(_error!, style: const TextStyle(color: Colors.red)),
               ],
               Gaps.h16,
-              ElevatedButton(
+              NesButton(
+                type: NesButtonType.normal,
                 onPressed:
                     _isUploading
                         ? null

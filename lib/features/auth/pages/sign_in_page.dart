@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nes_ui/nes_ui.dart';
 import 'package:poke_app/components/common/constants.dart';
 import 'package:poke_app/features/auth/provider/auth_provider.dart';
 import 'package:poke_app/services/router/router_provider.dart';
@@ -82,6 +83,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           child: Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
                   child: Image.asset(
@@ -116,7 +118,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   Text(_error!, style: const TextStyle(color: Colors.red)),
                 ],
                 Gaps.h24,
-                ElevatedButton(
+                NesButton(
+                  type: NesButtonType.primary,
                   key: _signInKey,
                   onPressed: () async {
                     if (!_formKey.currentState!.validate()) return;
@@ -133,7 +136,9 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   },
                   child: const Text('Sign In'),
                 ),
-                Text('Or'),
+                Gaps.h4,
+                const Center(child: Text('Or')),
+                Gaps.h4,
                 IconButton.outlined(
                   icon: Image.asset(
                     'assets/images/google_logo.png',
@@ -162,7 +167,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   },
                 ),
                 const Divider(),
-                TextButton(
+                NesButton(
+                  type: NesButtonType.normal,
                   onPressed: () => context.goNamed(rSignUp),
                   child: const Text(
                     'Don\'t have an account?\nSign up',

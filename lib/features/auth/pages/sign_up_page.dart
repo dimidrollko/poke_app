@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nes_ui/nes_ui.dart';
 import 'package:poke_app/components/common/constants.dart';
 import 'package:poke_app/features/auth/provider/auth_provider.dart';
 import 'package:poke_app/services/router/router_provider.dart';
@@ -86,7 +87,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
           child: Form(
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/images/logo_pokemon.png',
@@ -133,7 +134,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   Text(_error!, style: const TextStyle(color: Colors.red)),
                 ],
                 Gaps.h24,
-                ElevatedButton(
+                NesButton(
+                  type: NesButtonType.primary,
                   key: _signUpKey,
                   onPressed: () async {
                     if (!_formKey.currentState!.validate()) return;
@@ -155,9 +157,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   },
                   child: const Text('Sign Up'),
                 ),
-                Gaps.h12,
+                Gaps.h4,
                 const Center(child: Text('Or')),
-                Gaps.h12,
+                Gaps.h4,
                 Center(
                   child: IconButton.outlined(
                     icon: Image.asset(
@@ -188,7 +190,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   ),
                 ),
                 const Divider(),
-                TextButton(
+                NesButton(
+                  type: NesButtonType.normal,
                   onPressed: () => context.goNamed(rSignIn),
                   child: const Text(
                     'Already have an account?\nSign In',

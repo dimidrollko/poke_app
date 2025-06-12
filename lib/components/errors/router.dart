@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nes_ui/nes_ui.dart';
 import 'package:poke_app/components/common/constants.dart';
 import 'package:poke_app/components/extensions/material_extensions.dart';
 import 'package:poke_app/services/router/router_provider.dart';
@@ -70,7 +71,8 @@ class _ErrorRouterScreenState extends State<ErrorRouterScreen> {
             constraints: BoxConstraints.tightFor(
               width: (context.width - (context.isLargeScreen ? 32 : 16)) / 2,
             ),
-            child: ElevatedButton(
+            child: NesButton(
+              type: NesButtonType.normal,
               onPressed: () {
                 context.goNamed(rSignIn);
               },
