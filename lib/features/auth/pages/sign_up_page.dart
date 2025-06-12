@@ -147,10 +147,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                             _passwordController.text.trim(),
                           );
                       if (!context.mounted) return;
-                      context.goNamed(
-                        rCompleteProfile,
-                        extra: widget.tutorialData,
-                      );
+                      context.goNamed(rSplash);
                     } catch (e) {
                       setState(() => _error = e.toString());
                     }
@@ -183,6 +180,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                         await ref
                             .read(authControllerProvider.notifier)
                             .signInWithGoogle();
+                        context.goNamed(rSplash);
                       } catch (e) {
                         setState(() => _error = e.toString());
                       }

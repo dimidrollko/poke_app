@@ -130,6 +130,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                             _emailController.text.trim(),
                             _passwordController.text.trim(),
                           );
+                      context.goNamed(rSplash);
                     } catch (e) {
                       setState(() => _error = e.toString());
                     }
@@ -161,6 +162,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                       await ref
                           .read(authControllerProvider.notifier)
                           .signInWithGoogle();
+                      context.goNamed(rSplash);
                     } catch (e) {
                       setState(() => _error = e.toString());
                     }
