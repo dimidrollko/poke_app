@@ -7,10 +7,11 @@ A cross-platform mobile app built using [Flutter](https://flutter.dev/). This pr
 These instructions will get your development environment set up and the app running on your local machine.
 
 ## 📋 TODO
-✅ Redirect routing logic based on separate Widget (check SplashPage)
-☑️ Redirect routing logic based on GoRouter API
-☑️ Additional branch for bloc architecture
-☑️ Profile Page/ Edit Profile with Logout Functionality
+✅ Redirect routing logic based on separate Widget (check SplashPage)<br />
+☑️ Redirect routing logic based on GoRouter API<br />
+☑️ Additional branch for bloc architecture<br />
+☑️ Profile Page/ Edit Profile with Logout Functionality<br />
+
 
 ### 📦 Prerequisites
 
