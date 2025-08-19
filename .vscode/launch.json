@@ -1,0 +1,53 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "poke_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "poke_app (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "poke_app (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },        {
+            "name": "Android",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5554"
+        },
+        {
+            "name": "iPhone",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "38CE091A-AE95-4623-A635-CCEE93081CD4"
+        },
+        {
+            "name": "iPad Pro",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "7B230E3F-1F4A-4219-9F18-BF16451B550E"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "All Devices",
+            "configurations": [
+                "Android",
+                "iPhone",
+                "iPad Pro"
+            ]
+        }
+    ]
+}
