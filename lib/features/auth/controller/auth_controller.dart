@@ -42,12 +42,12 @@ class AuthController extends StateNotifier<AsyncValue<User?>> {
   Future<void> signInWithGoogle() async {
     state = const AsyncValue.loading();
     try {
-      final googleUser = await GoogleSignIn().signIn();
+      final googleUser = await GoogleSignIn.instance.authenticate();
       if (googleUser == null) return;
       final googleAuth = await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
+        accessToken: googleAuth.idToken,
         idToken: googleAuth.idToken,
       );
 

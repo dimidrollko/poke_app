@@ -3,18 +3,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nes_ui/nes_ui.dart';
 import 'package:poke_app/features/pokedex/provider/pokemons_provider.dart';
 import 'package:poke_app/firebase_options.dart';
+import 'package:poke_app/logic/cubit/bloc/auth/auth_bloc.dart';
+import 'package:poke_app/logic/repositories/auth/firebase_auth_repository.dart';
+import 'package:poke_app/logic/utility/app_bloc_observer.dart';
+import 'package:poke_app/presentation/auth/signin/sign_in_screen.dart';
 import 'package:poke_app/services/router/router_provider.dart';
 
 void main() async {
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  Bloc.observer = AppBlocObserver();
   CachedNetworkImage.logLevel =
       kDebugMode ? CacheManagerLogLevel.debug : CacheManagerLogLevel.none;
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -47,12 +52,19 @@ class _AppState extends ConsumerState<App> {
 
   @override
   Widget build(BuildContext context) {
-    final goRouter = ref.watch(goRouterProvider);
-    return MaterialApp.router(
-      title: 'Poke App',
-      theme: flutterNesTheme(brightness: Brightness.dark),
-      routerConfig: goRouter,
-      debugShowCheckedModeBanner: false,
+    //
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create:
+              (context) => AuthBloc(authRepository: FirebaseAuthRepository()),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Poke App',
+        theme: flutterNesTheme(brightness: Brightness.dark),
+        home: const SignInPage(),
+      ),
     );
   }
 }

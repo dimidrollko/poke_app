@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '14.0'
+platform :ios, '15.0'
 
 install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 
@@ -33,7 +33,7 @@ target 'Runner' do
   use_frameworks!
   pod 'FirebaseFirestore',
     :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git',
-    :tag => '11.10.0'
+    :tag => '12.0.0'
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths
