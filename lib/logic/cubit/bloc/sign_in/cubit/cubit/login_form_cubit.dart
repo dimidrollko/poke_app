@@ -11,5 +11,4 @@ class LoginFormCubit extends Cubit<LoginFormState> {
 
   void emailChanged(String email) => emit(state.withEmail(email));
   void passwordChanged(String password) => emit(state.withPassword(password));
-  
 }

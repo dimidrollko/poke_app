@@ -10,7 +10,6 @@ import 'package:poke_app/features/pokedex/data/poke_type.dart';
 import 'package:poke_app/features/pokedex/data/pokemon_details.dart';
 import 'package:poke_app/features/pokedex/data/pokemon_model.dart';
 import 'package:poke_app/features/pokedex/provider/pokemons_provider.dart';
-import 'package:poke_app/user/provider/provider.dart';
 
 class PokemonCard extends ConsumerWidget {
   final PokemonBase pokemon;
@@ -34,19 +33,20 @@ class PokemonCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userProfileAsync = ref.watch(userProfileStreamProvider);
+    // final userProfileAsync = ref.watch(userProfileStreamProvider);
 
-    final userProfile = userProfileAsync.asData?.value;
+    // final userProfile = userProfileAsync.asData?.value;
     final isDiscovered =
-        userProfile?.discoveredEntities.any(
-          (entry) => entry.id == pokemon.id,
-        ) ??
+        // userProfile?.discoveredEntities.any(
+        //   (entry) => entry.id == pokemon.id,
+        // ) ??
         false;
 
     final detail =
-        isDiscovered
-            ? ref.watch(pokemonDetailsProvider(pokemon.id)).asData?.value
-            : null;
+        // isDiscovered
+        //     ? ref.watch(pokemonDetailsProvider(pokemon.id)).asData?.value
+        //     : 
+            null;
 
     return Container(
       height: 128,

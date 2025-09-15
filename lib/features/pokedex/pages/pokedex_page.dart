@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poke_app/features/pokedex/components/pokemon_card.dart';
 import 'package:poke_app/features/pokedex/provider/pokemons_provider.dart';
-import 'package:poke_app/services/router/router_provider.dart';
+import 'package:poke_app/services/router/router.dart';
 
 final showDiscoveredOnlyProvider = StateProvider<bool>((ref) => false);
 

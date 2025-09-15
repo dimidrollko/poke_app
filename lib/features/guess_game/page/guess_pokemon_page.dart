@@ -11,8 +11,7 @@ import 'package:poke_app/components/common/constants.dart';
 import 'package:poke_app/features/guess_game/data/starter_pack.dart';
 import 'package:poke_app/features/pokedex/data/pokemon_model.dart';
 import 'package:poke_app/features/pokedex/provider/pokemons_provider.dart';
-import 'package:poke_app/services/router/router_provider.dart';
-import 'package:poke_app/user/provider/provider.dart';
+import 'package:poke_app/services/router/router.dart';
 
 class GuessPokemonPage extends ConsumerStatefulWidget {
   final bool isTutorial;
@@ -131,7 +130,6 @@ class _GuessPokemonPageState extends ConsumerState<GuessPokemonPage> {
   @override
   Widget build(BuildContext context) {
     final quizAsync = ref.watch(quizNotifierProvider);
-    final userProfileAsync = ref.watch(userProfileStreamProvider);
 
     return quizAsync.when(
       loading:
@@ -146,15 +144,15 @@ class _GuessPokemonPageState extends ConsumerState<GuessPokemonPage> {
         correctOption ??= options.first;
         shuffledOptions ??= List<PokemonBase>.from(options)..shuffle(Random());
 
-        final profile = userProfileAsync.asData?.value;
-        final isDiscovered =
-            profile?.discoveredEntities.any((e) => e.id == correctOption?.id) ??
-            false;
+        // final profile = userProfileAsync.asData?.value;
+        // final isDiscovered =
+        //     // profile?.discoveredEntities.any((e) => e.id == correctOption?.id) ??
+        //     false;
 
-        if (isWaitingForDiscovery && isDiscovered) {
-          isWaitingForDiscovery = false;
-          showFeedback = true;
-        }
+        // if (isWaitingForDiscovery && isDiscovered) {
+        //   isWaitingForDiscovery = false;
+        //   showFeedback = true;
+        // }
 
         return Scaffold(
           appBar: AppBar(
@@ -227,13 +225,13 @@ class _GuessPokemonPageState extends ConsumerState<GuessPokemonPage> {
                                 image: DecorationImage(
                                   image: imageProvider,
                                   fit: BoxFit.contain,
-                                  colorFilter:
-                                      isDiscovered || showFeedback
-                                          ? null
-                                          : const ColorFilter.mode(
-                                            Colors.black,
-                                            BlendMode.srcIn,
-                                          ),
+                                  colorFilter: null,
+                                      // isDiscovered || showFeedback
+                                      //     ? null
+                                      //     : const ColorFilter.mode(
+                                      //       Colors.black,
+                                      //       BlendMode.srcIn,
+                                      //     ),
                                 ),
                               ),
                             );

@@ -6,7 +6,6 @@ import 'package:poke_app/features/pokedex/data/pokemon_model.dart';
 import 'package:poke_app/features/pokedex/repository/pokedex_repository.dart';
 import 'package:poke_app/services/api/api_provider.dart';
 import 'package:poke_app/services/db/db_provider.dart';
-import 'package:poke_app/user/provider/provider.dart';
 
 final pokedexDbProvider = Provider<PokedexRepository>((ref) {
   return PokedexRepositoryDbImpl(ref.read(dbServiceProvider));
@@ -37,11 +36,11 @@ final discoveredPokemonsProvider = FutureProvider<List<PokemonBase>>((
   ref,
 ) async {
   final db = ref.read(pokedexDbProvider);
-  final userProfile = ref.watch(userProfileStreamProvider).asData?.value;
+  // final userProfile = ref.watch(userProfileStreamProvider).asData?.value;
 
-  final discoveredIds =
-      userProfile?.discoveredEntities.map((e) => e.id).toList() ?? [];
-  return db.getDiscoveredPokemons(discoveredIds);
+  // final discoveredIds = [];
+      // userProfile?.discoveredEntities.map((e) => e.id).toList() ?? [];
+  return db.getDiscoveredPokemons([]);
 });
 
 final pokemonDetailsProvider = FutureProvider.family<PokemonDetail, int>((

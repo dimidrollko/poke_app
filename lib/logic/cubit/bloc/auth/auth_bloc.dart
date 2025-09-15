@@ -17,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (rawUser == null) {
         add(AuthLoggedOut());
       } else {
-        add(AuthLoggedIn(user: User.fromRaw(rawUser)));
+        add(AuthLoggedIn(user: User.fromJson(rawUser)));
       }
     });
 
@@ -33,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     try {
       await authRepository.signInWith(event.email, event.password);
-    } catch (e, st) {
+    } catch (e) {
       emit(AuthError(e.toString()));
     }
   }

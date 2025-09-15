@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nes_ui/nes_ui.dart';
 import 'package:poke_app/components/common/constants.dart';
 import 'package:poke_app/components/extensions/material_extensions.dart';
-import 'package:poke_app/services/router/router_provider.dart';
+import 'package:poke_app/services/router/router.dart';
 
 class ErrorRouterScreen extends StatefulWidget {
   final String location;
@@ -24,7 +24,7 @@ class _ErrorRouterScreenState extends State<ErrorRouterScreen> {
   void initState() {
     _title = 'Incorrect router';
     _subtitle = "Page ${widget.location} not found";
-    _buttonTitle = lastPage != null ? 'Back' : 'Go to Home screen';
+    _buttonTitle = 'Go to Home screen';
     setState(() {});
     FlutterNativeSplash.remove();
     super.initState();

@@ -1,17 +1,15 @@
 // go_router_provider.dart
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poke_app/features/auth/pages/complete_profile_page.dart';
-import 'package:poke_app/features/auth/pages/sign_in_page.dart';
-import 'package:poke_app/features/auth/pages/sign_up_page.dart';
 import 'package:poke_app/features/guess_game/page/guess_pokemon_page.dart';
-import 'package:poke_app/features/pokedex/pages/pokedex_page.dart';
 import 'package:poke_app/features/root/page/splash_page.dart';
 import 'package:poke_app/features/tabbar/page/tab_bar_page.dart';
-import 'package:poke_app/services/firebase_auth/provider.dart';
+import 'package:poke_app/logic/cubit/bloc/auth/auth_bloc.dart';
+import 'package:poke_app/logic/cubit/profile/bloc/profile_bloc.dart';
+import 'package:poke_app/presentation/auth/signin/sign_in_screen.dart';
+import 'package:poke_app/services/router/bloc_router_notifier.dart';
 
 // Route constants
 const String rSplash = '/';
@@ -29,12 +27,48 @@ final GlobalKey<NavigatorState> authNavigator = GlobalKey(
 final GlobalKey<NavigatorState> mainNavigator = GlobalKey(
   debugLabel: 'main_shell',
 );
-String? lastPage;
 
-final goRouterProvider = Provider<GoRouter>((ref) {
+GoRouter getGoRouter(BuildContext context) {
+  final authBloc = context.read<AuthBloc>();
+  final profileBloc = context.read<ProfileBloc>();
+
   return GoRouter(
     navigatorKey: rootNavigator,
     initialLocation: rSplash,
+    debugLogDiagnostics: true,
+    refreshListenable: BlocRouterNotifier(authBloc, profileBloc),
+    redirect: (BuildContext context, GoRouterState state) {
+      final authState = authBloc.state;
+      final profileState = profileBloc.state;
+      final isGoingToAuth = state.fullPath?.startsWith('/auth') ?? false;
+
+      // Unauthenticated users can only go to auth pages.
+      if (authState is AuthUnauthenticated) {
+        return isGoingToAuth ? null : rSignIn;
+      }
+      // Receiving Error or Loading state should left on current flow
+      if (authState is AuthLoading || authState is AuthError) {
+        return null;
+      }
+      // Authenticated but profile not completed.
+      if (authState is AuthAuthenticated) {
+        if (profileState is ProfileNotCompleted) {
+          return rCompleteProfile;
+        }
+      }
+
+      // Authenticated and profile is completed.
+      if (authState is AuthAuthenticated && profileState is ProfileLoaded) {
+        // Redirect from auth pages to the main app.
+        return isGoingToAuth ? rPokedex : null;
+      }
+      // Keep user on splash screen while states are loading.
+      if (authState is AuthInitial || profileState is ProfileInitial) {
+        return rSplash;
+      }
+
+      return null; // No redirect needed.
+    },
     routes: [
       GoRoute(
         path: rSplash,
@@ -60,7 +94,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: rSignUp,
             builder: (context, state) {
               final tutorialData = state.extra as Map<String, dynamic>?;
-              return SignUpPage(tutorialData: tutorialData);
+              return CompleteProfilePage(); // SignUpPage(tutorialData: tutorialData);
             },
           ),
           GoRoute(
@@ -68,7 +102,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: rCompleteProfile,
             builder: (context, state) {
               final tutorialData = state.extra as Map<String, dynamic>?;
-              return CompleteProfilePage(tutorialData: tutorialData,);
+              return CompleteProfilePage(tutorialData: tutorialData);
             },
           ),
         ],
@@ -91,4 +125,4 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
     ],
   );
-});
+}

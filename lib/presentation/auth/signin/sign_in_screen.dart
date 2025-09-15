@@ -12,23 +12,9 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Sign In')),
       body: SafeArea(
-        child: BlocConsumer<AuthBloc, AuthState>(
-          listenWhen: (previous, current) {
-            return previous != current;
-          },
-          listener: (context, state) {
-            if (state is AuthError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
-            }
-          },
-          builder: (context, state) {
-            return BlocProvider(
-              create: (_) => LoginFormCubit(),
-              child: const SignInForm(),
-            );
-          },
+        child: BlocProvider(
+          create: (_) => LoginFormCubit(),
+          child: const SignInForm(),
         ),
       ),
     );

@@ -9,12 +9,12 @@ class FirebaseAuthRepository implements IAuthRepository {
   Stream<UserRawModel?> authStateChanges() {
     return _firebaseAuth.authStateChanges().map((user) {
       if (user == null) return null;
-      return UserRawModel(
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        isEmailVerified: user.emailVerified,
-      );
+      return {
+        'uid': user.uid,
+        'email': user.email,
+        'displayName': user.displayName,
+        'isEmailVerified': user.emailVerified,
+      };
     });
   }
 
