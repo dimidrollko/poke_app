@@ -5,8 +5,9 @@ import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nes_ui/nes_ui.dart';
 import 'package:poke_app/components/common/constants.dart';
+import 'package:poke_app/features/pokedex/data/poke_stat.dart';
 import 'package:poke_app/logic/cubit/bloc/auth/auth_bloc.dart';
-import 'package:poke_app/logic/cubit/bloc/sign_in/cubit/cubit/login_form_cubit.dart';
+import 'package:poke_app/logic/cubit/bloc/sign_in/cubit/cubit/signin_form_cubit.dart';
 import 'package:poke_app/presentation/auth/shared/email_input_field.dart';
 import 'package:poke_app/presentation/auth/signin/components/login_button.dart';
 import 'package:poke_app/presentation/auth/shared/password_input_field.dart';
@@ -66,9 +67,9 @@ class _SignInFormState extends State<SignInForm> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       builder: (context, state) {
@@ -87,13 +88,26 @@ class _SignInFormState extends State<SignInForm> {
                         width: double.infinity,
                       ),
                     ),
-                    EmailInputField(
-                      focusNode: _emailNode,
-                      onChanged: context.read<LoginFormCubit>().emailChanged,
+                    BlocBuilder<SignInFormCubit, SignInFormState>(
+                      builder: (context, state) {
+                        return EmailInputField(
+                          focusNode: _emailNode,
+                          email: state.email,
+                          onChanged:
+                              context.read<SignInFormCubit>().emailChanged,
+                        );
+                      },
                     ),
                     Gaps.h16,
-                    PasswordInputField(
-                      focusNode: _passwordNode,
+                    BlocBuilder<SignInFormCubit, SignInFormState>(
+                      builder: (context, state) {
+                        return PasswordInputField(
+                          focusNode: _passwordNode,
+                          password: state.password,
+                          onChanged:
+                              context.read<SignInFormCubit>().passwordChanged,
+                        );
+                      },
                     ),
                     Gaps.h24,
                     LoginButton(signInKey: _signInKey),
@@ -119,9 +133,7 @@ class _SignInFormState extends State<SignInForm> {
             if (state is AuthLoading)
               Container(
                 color: Colors.black.withOpacity(0.5),
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                child: const Center(child: CircularProgressIndicator()),
               ),
           ],
         );

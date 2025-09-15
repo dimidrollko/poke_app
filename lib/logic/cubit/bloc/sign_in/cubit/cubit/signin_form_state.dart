@@ -1,13 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'login_form_cubit.dart';
+part of 'signin_form_cubit.dart';
 
-class LoginFormState extends Equatable {
+class SignInFormState extends Equatable {
   final Email email;
   final Password password;
   final FormzSubmissionStatus status;
   final String? errorMessage;
 
-  LoginFormState({
+  SignInFormState({
     Email? email,
     this.password = const Password.pure(),
     this.status = FormzSubmissionStatus.initial,
@@ -16,23 +15,23 @@ class LoginFormState extends Equatable {
 
   bool get isValid => Formz.validate([email, password]);
 
-  LoginFormState withEmail(String email) {
+  SignInFormState withEmail(String email) {
     return copyWith(email: Email.dirty(email));
   }
 
-  LoginFormState withPassword(String password) {
+  SignInFormState withPassword(String password) {
     return copyWith(password: Password.dirty(password));
   }
 
   @override
   List<Object?> get props => [email, password, status, errorMessage];
 
-  LoginFormState copyWith({
+  SignInFormState copyWith({
     Email? email,
     Password? password,
     FormzSubmissionStatus? status,
   }) {
-    return LoginFormState(
+    return SignInFormState(
       email: email ?? this.email,
       password: password ?? this.password,
       status: status ?? this.status,
@@ -40,4 +39,4 @@ class LoginFormState extends Equatable {
   }
 }
 
-final class LoginFormInitial extends LoginFormState {}
+final class SignInFormInitial extends SignInFormState {}
